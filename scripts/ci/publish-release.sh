@@ -2,18 +2,18 @@
 # Attach the installer to the selected release, append the artifact details to its notes and publish.
 #
 # The release-please tag is the stable version selected for a future manual release. An automatic
-# build gets its own CI tag so that the prerelease and the eventual stable release can coexist:
-# v0.6.2-ci.<run-id> is the automatic snapshot, while v0.6.2 remains the stable draft.
+# build gets its own SemVer prerelease tag so that the prerelease and the eventual stable release
+# can coexist: v0.6.2-beta is the automatic build, while v0.6.2 remains the stable draft.
 #
 # The prerelease flag means "automatic and uncurated" here, not "beta". The product being 内测 is
 # stated in the notes and in docs/installation.md.
 #
 # Requires GH_TOKEN, GH_REPO, TAG_NAME, ASSET_PATH, ASSET_NAME, ASSET_SHA256, SIGNING_ENABLED,
-# DICTIONARY_TAG, PRODUCT_MANIFEST, RELEASE_TRIGGER, TARGET_SHA and GITHUB_RUN_ID.
+# DICTIONARY_TAG, PRODUCT_MANIFEST, RELEASE_TRIGGER and TARGET_SHA.
 set -euo pipefail
 
 if [[ "$RELEASE_TRIGGER" == push ]]; then
-    release_tag="${TAG_NAME}-ci.${GITHUB_RUN_ID}"
+    release_tag="${TAG_NAME}-beta"
     title="${release_tag}（自动构建）"
     banner='本版本由 CI 在合并到 `main` 后自动构建发布。'
 
